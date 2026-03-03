@@ -83,7 +83,7 @@ const PRODUCT_DATA: Record<ProductId, ProductData> = {
 // 2. ANIMATION VARIANTS
 // =========================================
 
-const ANIMATIONS = {
+const ANIMATIONS: any = {
   container: {
     hidden: { opacity: 0 },
     visible: {
@@ -105,7 +105,7 @@ const ANIMATIONS = {
     },
     exit: { opacity: 0, y: -10, filter: "blur(5px)" },
   },
-  image: (isLeft: boolean) => ({
+  image: (isLeft: boolean): any => ({
     initial: {
       opacity: 0,
       scale: 1.5,
