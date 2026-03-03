@@ -105,7 +105,7 @@ const ANIMATIONS = {
     },
     exit: { opacity: 0, y: -10, filter: "blur(5px)" },
   },
-  image: (isLeft: boolean): Variants => ({
+  image: (isLeft: boolean) => ({
     initial: {
       opacity: 0,
       scale: 1.5,

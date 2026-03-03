@@ -22,7 +22,7 @@ export default function Navbar() {
           <Link href="#security" className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             Security
           </Link>
-          <Link href="#testimonials" className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <Link href="/testimonials" className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             Testimonials
           </Link>
         </div>
