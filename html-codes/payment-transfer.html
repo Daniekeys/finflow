@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payments &amp; Transfers - Fintech App</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better aesthetic in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #233648; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #324d67; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Top Nav -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-solid border-b-[#e5e7eb] dark:border-b-[#233648] bg-white dark:bg-[#111a22] px-6 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">FintechApp</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#637588] dark:text-[#92adc9] text-sm font-medium hover:text-primary dark:hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-[#637588] dark:text-[#92adc9] text-sm font-medium hover:text-primary dark:hover:text-primary transition-colors" href="#">Accounts</a>
+<a class="text-[#637588] dark:text-[#92adc9] text-sm font-medium hover:text-primary dark:hover:text-primary transition-colors" href="#">Cards</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Payments</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="hidden md:flex relative w-full max-w-xs">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#637588] dark:text-[#92adc9]">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="w-full rounded-lg border border-[#e5e7eb] dark:border-[#233648] bg-[#f9fafb] dark:bg-[#233648] py-2 pl-10 pr-4 text-sm text-[#111418] dark:text-white placeholder-[#637588] dark:placeholder-[#92adc9] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search accounts, payees..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative text-[#637588] dark:text-[#92adc9] hover:text-primary">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+</button>
+<div class="h-10 w-10 overflow-hidden rounded-full border border-[#e5e7eb] dark:border-[#233648] bg-center bg-cover" data-alt="User profile picture showing a professional headshot" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDFiVQe8CaQCgQXrb9zjrKpB-Ckw7SB52UYiTV3_zTbaziNGm9z-rSFjSCS3Jxo5H8xqh0IUC3aJ6jVpIjziglQ5uczPyZO1NpYXY7Vu7q8NNCwSDVjqNB7FR8vZjijhPgVByfGhr2dWD0ptnYfURnGHGSa91MXgQuKj0IbGXRlG4CvPjPVsg4zzPRG2diX7avMBll6e3Qxdw42vce7Bt4NX1xe-v_Y1yKqCb9x1zRLLeQ3GjUxiJcV4MkY6z-tMOJL0Nz4fk0C8kg");'></div>
+</div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Side Nav -->
+<aside class="hidden w-64 flex-col border-r border-[#e5e7eb] dark:border-[#233648] bg-white dark:bg-[#111a22] lg:flex">
+<div class="flex flex-col gap-6 p-6">
+<div class="flex items-center gap-4 rounded-xl bg-[#f0f9ff] dark:bg-[#1a2c42] p-4 border border-[#e5e7eb] dark:border-[#233648]">
+<div class="h-12 w-12 rounded-full bg-center bg-cover" data-alt="User profile picture repeating for sidebar context" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDGCw8NGTu7MFjOSUJze-l367y5dpjD4tVMYu_9xjyEF2Ygg9lzQSBVu-vTmIs5KadmerauEsuFH62UHDqJMlyCLqmEmc8eszo7pK-aHG4FP5m6GBjrL5Ob9-TtcUPiedUYCKl_wX_zxMEYB6T03-TTyPmcRnJ4RQBpCS7Bgs6IbujJw3q_MEmqHC-W39_Ty159i1GP2Op0QKUg0QamyxQ4tgfJOM8_vSYSaZVonFw9W6_AJhfY3pmMYl4yxTunUISoLOc5QCj3Zk");'></div>
+<div class="flex flex-col">
+<h1 class="text-sm font-bold text-[#111418] dark:text-white">Sarah Jenkins</h1>
+<p class="text-xs text-[#637588] dark:text-[#92adc9]">Premium Account</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#1e293b] hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="group flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary dark:text-white dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined text-primary dark:text-primary">payments</span>
+<span class="text-sm font-medium">Payments</span>
+</a>
+<a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#1e293b] hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="text-sm font-medium">Transfers</span>
+</a>
+<a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#1e293b] hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Statements</span>
+</a>
+<a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#1e293b] hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+<div class="mt-auto rounded-xl bg-gradient-to-br from-primary to-[#0b5cbe] p-4 text-white">
+<div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+<span class="material-symbols-outlined">support_agent</span>
+</div>
+<h3 class="mb-1 text-sm font-bold">Need Help?</h3>
+<p class="mb-3 text-xs text-blue-100">Contact our 24/7 support team for assistance.</p>
+<button class="w-full rounded-lg bg-white py-2 text-xs font-bold text-primary hover:bg-blue-50">Chat Now</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-6 md:px-8 md:py-8 lg:px-12 bg-background-light dark:bg-background-dark">
+<div class="mx-auto max-w-6xl">
+<!-- Page Heading -->
+<div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-[#111418] dark:text-white md:text-4xl">Payments &amp; Transfers</h1>
+<p class="mt-2 text-[#637588] dark:text-[#92adc9]">Send money securely or manage your scheduled payments.</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-[#101922] transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        New Payee
+                    </button>
+</div>
+<!-- Tabs -->
+<div class="mb-8 border-b border-[#e5e7eb] dark:border-[#233648]">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8">
+<a aria-current="page" class="group inline-flex items-center border-b-2 border-primary py-4 px-1 text-sm font-bold text-primary" href="#">
+<span class="material-symbols-outlined mr-2">send</span>
+                            Send Money
+                        </a>
+<a class="group inline-flex items-center border-b-2 border-transparent py-4 px-1 text-sm font-medium text-[#637588] dark:text-[#92adc9] hover:border-[#637588] dark:hover:border-[#92adc9] hover:text-[#111418] dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-2">sync_alt</span>
+                            Internal Transfer
+                        </a>
+<a class="group inline-flex items-center border-b-2 border-transparent py-4 px-1 text-sm font-medium text-[#637588] dark:text-[#92adc9] hover:border-[#637588] dark:hover:border-[#92adc9] hover:text-[#111418] dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-2">event_repeat</span>
+                            Recurring Setup
+                        </a>
+</nav>
+</div>
+<div class="grid grid-cols-1 gap-8 xl:grid-cols-3">
+<!-- Left Column: Form -->
+<div class="xl:col-span-2 space-y-6">
+<!-- Recent Payees Carousel -->
+<div class="rounded-2xl border border-[#e5e7eb] dark:border-[#233648] bg-white dark:bg-[#1a242f] p-6 shadow-sm">
+<h3 class="mb-4 text-base font-bold text-[#111418] dark:text-white">Recent Recipients</h3>
+<div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+<!-- Add Payee Button -->
+<button class="flex min-w-[80px] flex-col items-center gap-2 group">
+<div class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-dashed border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[#637588] dark:text-[#92adc9] group-hover:text-primary">add</span>
+</div>
+<span class="text-xs font-medium text-[#637588] dark:text-[#92adc9] group-hover:text-primary">New</span>
+</button>
+<!-- Payee 1 -->
+<button class="flex min-w-[80px] flex-col items-center gap-2 group">
+<div class="h-14 w-14 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Portrait of Alice M." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD40mp9ljerq-yWfsJhYjUD0Z5QiJEuZURRd8UUWjgq_KbjmoAsOxoLHdcOeoAfs3HTGYBgEco6OT8PYjVhbpD7SdM6pFk6Vg3xi7bOnFy4SYWL_d5NhF7iZfVprEDXytZxe72ZgUk3pEF13lSvnmKgUaZ2e_YNrSGNAsFmwkuslq7F5K8acIMMK7i5KcSmyIpa9WX74INF_YHqKRoGT7qyyyMPHdCWCS4aHQBV_yhpPLyNX0KuEoFYXvx8HvJsxxXYgc1A0z7Ap68");'></div>
+<span class="text-xs font-medium text-[#111418] dark:text-white">Alice M.</span>
+</button>
+<!-- Payee 2 -->
+<button class="flex min-w-[80px] flex-col items-center gap-2 group">
+<div class="h-14 w-14 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Portrait of Bob D." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBYJV2K9RVmdvlG8GtUMv-YwNBC0G3ZvxBamvWh_lyAcQV8jvdUN9jndjXueEJvfNiruQVYVlNw2MYC8_ho_cJMHyMmXhs4gK8hjaWzyzdYx1NrsC7cOCg3C400aVV6cpUiY9MQG_O8GxljtpMGquBzzuQrRFCdmfmu_2gvdnCYS0tyLs6UHRUv6d7frBSF5R4hxZ1NZBcOBetCdKj3Df4HskZAT5uQP06aLnhoieDwpamHprEkHzIizxK_sI0pu1GYrp0K3vFm4b0");'></div>
+<span class="text-xs font-medium text-[#111418] dark:text-white">Bob D.</span>
+</button>
+<!-- Payee 3 -->
+<button class="flex min-w-[80px] flex-col items-center gap-2 group">
+<div class="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-200 text-lg font-bold border-2 border-transparent group-hover:border-primary transition-all">CW</div>
+<span class="text-xs font-medium text-[#111418] dark:text-white">Charlie</span>
+</button>
+<!-- Payee 4 -->
+<button class="flex min-w-[80px] flex-col items-center gap-2 group">
+<div class="h-14 w-14 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Company logo for Utility Co" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWE-0veNn9LdruP3hmVYS_mT9i5VDCFNmTKDWeZ1a7pbss6rhghMTZ5_M1hMDIS_TjZWxWnvfi--_u8L_wrNxmqjD9FzjgB8dbt5_iToQ0O5Ob5_QJw1BP039S0zwZ3sa1oopTq02aRAiMXBnYShZgqsfb10NGC_iuijd01YkJp1Wb-jtxj2CFyUK_HdlB5ZvRHWXEfAUEojmOK3Nm3qyShp13oux2xJyRCPVRvSNe-O7qkT7YyQOGOW4diX_T2DI2xPdIZtn-FSY");'></div>
+<span class="text-xs font-medium text-[#111418] dark:text-white">Utility Co</span>
+</button>
+<!-- Payee 5 -->
+<button class="flex min-w-[80px] flex-col items-center gap-2 group">
+<div class="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-200 text-lg font-bold border-2 border-transparent group-hover:border-primary transition-all">LM</div>
+<span class="text-xs font-medium text-[#111418] dark:text-white">Landlord</span>
+</button>
+</div>
+</div>
+<!-- Main Transfer Form -->
+<div class="rounded-2xl border border-[#e5e7eb] dark:border-[#233648] bg-white dark:bg-[#1a242f] p-6 sm:p-8 shadow-sm">
+<form class="space-y-6">
+<!-- From Account -->
+<div>
+<label class="mb-2 block text-sm font-medium text-[#111418] dark:text-white">From Account</label>
+<div class="relative">
+<button class="flex w-full items-center justify-between rounded-xl border border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] p-4 text-left transition-colors hover:border-primary dark:hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary" type="button">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-primary dark:bg-blue-900/30">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<p class="font-bold text-[#111418] dark:text-white">Checking Account</p>
+<p class="text-sm text-[#637588] dark:text-[#92adc9]•••• 4829 | Available: &lt;span class=" dark:text-white="" font-semibold"="" text-[#111418]="">$12,450.00</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#637588] dark:text-[#92adc9]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- To Recipient -->
+<div>
+<label class="mb-2 block text-sm font-medium text-[#111418] dark:text-white">To</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#637588] dark:text-[#92adc9]">
+<span class="material-symbols-outlined">search</span>
+</span>
+<input class="w-full rounded-xl border border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] py-3.5 pl-12 pr-4 text-[#111418] dark:text-white placeholder-[#637588] dark:placeholder-[#92adc9] focus:border-primary focus:ring-primary" placeholder="Name, @username, email, or mobile" type="text"/>
+</div>
+</div>
+<!-- Amount Input -->
+<div>
+<label class="mb-2 block text-sm font-medium text-[#111418] dark:text-white">Amount</label>
+<div class="relative mb-3">
+<span class="absolute inset-y-0 left-0 flex items-center pl-4 text-2xl font-bold text-[#111418] dark:text-white">$</span>
+<input class="w-full rounded-xl border border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] py-4 pl-10 pr-4 text-3xl font-bold text-[#111418] dark:text-white placeholder-[#637588] dark:placeholder-[#92adc9] focus:border-primary focus:ring-primary" placeholder="0.00" type="number"/>
+</div>
+<div class="flex gap-2">
+<button class="rounded-full border border-[#e5e7eb] dark:border-[#324d67] bg-transparent px-4 py-1 text-sm font-medium text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#233648] hover:text-primary transition-colors" type="button">+$50</button>
+<button class="rounded-full border border-[#e5e7eb] dark:border-[#324d67] bg-transparent px-4 py-1 text-sm font-medium text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#233648] hover:text-primary transition-colors" type="button">+$100</button>
+<button class="rounded-full border border-[#e5e7eb] dark:border-[#324d67] bg-transparent px-4 py-1 text-sm font-medium text-[#637588] dark:text-[#92adc9] hover:bg-[#f0f9ff] dark:hover:bg-[#233648] hover:text-primary transition-colors" type="button">+$500</button>
+<button class="rounded-full border border-[#e5e7eb] dark:border-[#324d67] bg-transparent px-4 py-1 text-sm font-medium text-primary hover:bg-primary/10 transition-colors ml-auto" type="button">Max</button>
+</div>
+</div>
+<!-- Date & Repeat -->
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+<div>
+<label class="mb-2 block text-sm font-medium text-[#111418] dark:text-white">Date</label>
+<div class="relative">
+<input class="w-full rounded-xl border border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] py-3 pl-4 pr-10 text-[#111418] dark:text-white focus:border-primary focus:ring-primary" type="date"/>
+<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-[#637588] dark:text-[#92adc9]">
+<span class="material-symbols-outlined">calendar_today</span>
+</span>
+</div>
+</div>
+<div class="flex items-center justify-between rounded-xl border border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] p-3">
+<div class="flex items-center gap-3">
+<div class="rounded-full bg-primary/10 p-2 text-primary">
+<span class="material-symbols-outlined text-[20px]">repeat</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111418] dark:text-white">Repeat</p>
+<p class="text-xs text-[#637588] dark:text-[#92adc9]">Set recurring payment</p>
+</div>
+</div>
+<label class="relative inline-flex cursor-pointer items-center">
+<input class="peer sr-only" type="checkbox" value=""/>
+<div class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:bg-[#324d67] dark:border-gray-600"></div>
+</label>
+</div>
+</div>
+<!-- Note -->
+<div>
+<label class="mb-2 block text-sm font-medium text-[#111418] dark:text-white">Note (Optional)</label>
+<input class="w-full rounded-xl border border-[#e5e7eb] dark:border-[#324d67] bg-[#f9fafb] dark:bg-[#233648] py-3 px-4 text-[#111418] dark:text-white placeholder-[#637588] dark:placeholder-[#92adc9] focus:border-primary focus:ring-primary" placeholder="What's this for?" type="text"/>
+</div>
+</form>
+</div>
+</div>
+<!-- Right Column: Summary -->
+<div class="xl:col-span-1">
+<div class="sticky top-24 space-y-6">
+<!-- Transaction Summary Card -->
+<div class="rounded-2xl bg-[#1e293b] dark:bg-[#1a242f] p-6 text-white shadow-lg border border-[#324d67]/50">
+<h3 class="mb-6 text-lg font-bold">Transaction Summary</h3>
+<div class="relative mb-8 flex flex-col items-center justify-center">
+<div class="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-[#233648] border-2 border-[#324d67]">
+<span class="material-symbols-outlined text-3xl text-primary">arrow_forward</span>
+</div>
+<div class="absolute top-1/2 h-0.5 w-full -translate-y-1/2 bg-[#324d67]"></div>
+</div>
+<div class="space-y-4 border-t border-[#324d67] pt-4">
+<div class="flex justify-between">
+<span class="text-[#92adc9]">Transfer Amount</span>
+<span class="font-bold">$0.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-[#92adc9]">Processing Fee</span>
+<span class="font-bold">Free</span>
+</div>
+<div class="flex justify-between border-t border-[#324d67] pt-4">
+<span class="text-lg font-bold">Total</span>
+<span class="text-lg font-bold text-primary">$0.00</span>
+</div>
+</div>
+<div class="mt-6 rounded-lg bg-[#233648]/50 p-3 flex items-start gap-3">
+<span class="material-symbols-outlined text-[#92adc9] text-[20px] mt-0.5">lock</span>
+<p class="text-xs text-[#92adc9] leading-relaxed">
+                                        Your transaction is secured with 256-bit SSL encryption. You may be asked for a PIN code on the next step.
+                                    </p>
+</div>
+<button class="mt-6 w-full rounded-xl bg-primary py-4 text-base font-bold text-white shadow-lg hover:bg-blue-600 transition-colors focus:ring-4 focus:ring-blue-500/30">
+                                    Review &amp; Send
+                                </button>
+</div>
+<!-- Quick Help -->
+<div class="rounded-xl border border-[#e5e7eb] dark:border-[#233648] bg-white dark:bg-[#1a242f] p-4">
+<h4 class="mb-2 font-bold text-[#111418] dark:text-white">Transfer Limits</h4>
+<div class="space-y-2 text-sm">
+<div class="flex justify-between">
+<span class="text-[#637588] dark:text-[#92adc9]">Daily Limit</span>
+<span class="font-medium text-[#111418] dark:text-white">$5,000.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-[#637588] dark:text-[#92adc9]">Remaining</span>
+<span class="font-medium text-green-500">$5,000.00</span>
+</div>
+</div>
+<div class="mt-3 h-2 w-full rounded-full bg-[#f0f2f5] dark:bg-[#324d67]">
+<div class="h-2 w-0 rounded-full bg-primary" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Transactions Table -->
+<div class="mt-12">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold text-[#111418] dark:text-white">Recent Transactions</h3>
+<a class="text-sm font-bold text-primary hover:text-blue-400" href="#">View All</a>
+</div>
+<div class="overflow-hidden rounded-xl border border-[#e5e7eb] dark:border-[#233648]">
+<table class="w-full text-left text-sm">
+<thead class="bg-[#f9fafb] dark:bg-[#1e293b] text-[#637588] dark:text-[#92adc9]">
+<tr>
+<th class="px-6 py-4 font-medium">Recipient</th>
+<th class="px-6 py-4 font-medium">Date</th>
+<th class="px-6 py-4 font-medium">Status</th>
+<th class="px-6 py-4 font-medium text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#e5e7eb] dark:divide-[#233648] bg-white dark:bg-[#111a22] text-[#111418] dark:text-white">
+<tr class="hover:bg-[#f9fafb] dark:hover:bg-[#1a242f] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-cover bg-center" data-alt="Recipient Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBA_jcafnsGuEtrVPmNoaUx51YsYPNIrI0_s-vM7NKHpjeSdnaCPoTllyAuuiPeynNNybFBUrVEi8ObI2OZ0BxgkowPuI65RNhX9WO9sN_aCZdwzXM5ICpWz092Pvxm9mui1KmVik2wfi1YO5P2gMlAdGvnTSOPAyGoMTy1LVGlMpSkjgG5PM3GWfwhVz5nOzB2OTuBheaIB0_FyPEJ9j1jzk0YIbtPQsJ1luZyW1I57IcMqnh_s1SWCpCjLgVMZ1eSFx2_AjrbfnI");'></div>
+<span class="font-medium">Design Agency Ltd</span>
+</div>
+</td>
+<td class="px-6 py-4 text-[#637588] dark:text-[#92adc9]">Oct 24, 2023</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/30 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                            Completed
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-bold">-$2,450.00</td>
+</tr>
+<tr class="hover:bg-[#f9fafb] dark:hover:bg-[#1a242f] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400 text-xs font-bold">NF</div>
+<span class="font-medium">Netflix Subscription</span>
+</div>
+</td>
+<td class="px-6 py-4 text-[#637588] dark:text-[#92adc9]">Oct 23, 2023</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2.5 py-0.5 text-xs font-medium text-yellow-700 dark:text-yellow-400">
+<span class="h-1.5 w-1.5 rounded-full bg-yellow-500"></span>
+                                            Pending
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-bold">-$15.99</td>
+</tr>
+<tr class="hover:bg-[#f9fafb] dark:hover:bg-[#1a242f] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-cover bg-center" data-alt="Recipient Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBoFa9eYz0ssm4SaL1zeIRkTufA4z3fio3LoBh6ZsNorRv7oHfrEnfQWdd15rV-bOGrbsEIah_2XA5k8UVk0tViuI9C7OaL7-GMbd-G2WJIwsvsajaTaAs5dwEU43eFmV_OEkepUlMpQp_k1aPfYd3eQJW2yYds8DJP9THyvaSalHITXVK6wb8WN73vWjcPtEyMFSv_-_yWsrrVmoB2PC9bEKwUMJOkZSU-xKgh9ctkjhNlyDJ4kRENGcUZlIGALA9xOHuCuFQOJgk");'></div>
+<span class="font-medium">Alice M.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-[#637588] dark:text-[#92adc9]">Oct 21, 2023</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 dark:bg-green-900/30 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                            Completed
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-bold">-$150.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>
